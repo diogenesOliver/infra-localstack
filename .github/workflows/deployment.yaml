@@ -1,0 +1,14 @@
+name: 'Creating Infra AWS with LocalStack'
+
+on: [ push, pull_request ]
+
+jobs:
+  test:
+    name: Pull a Cloud Pod
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to LocalStack
+        uses: LocalStack/localstack-github-actions-login@v0.1.0
+        with:
+          email: ${{ secrets.LOCALSTACK_USERNAME }}
+          password: ${{ secrets.LOCALSTACK_PASSWORD }}

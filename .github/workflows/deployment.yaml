@@ -13,7 +13,8 @@ jobs:
       - name: Start LocalStack
         run: |
           pip install pyopenssl -U
-          docker pull localstack/localstack:latest
+          docker pull localstack/localstack
+          docker run --rm -p 4566:4566 -p 4510-4559:4510-4559 localstack/localstack
           pip install localstack
           localstack start -d
           pip install awscli-local[ver1]

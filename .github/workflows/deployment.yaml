@@ -10,6 +10,16 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v3
 
+      - name: Start LocalStack
+        run: |
+          pip install pyopenssl -U
+          docker pull localstack/localstack:latest
+          pip install localstack
+          localstack start -d
+          pip install awscli-local[ver1]
+        env:
+          LOCALSTACK_API_KEY: ${{ secrets.LOCALSTACK_API_KEY }}
+
       - name: Login to LocalStack
         uses: LocalStack/localstack-github-actions-login@v0.1.0
         with:

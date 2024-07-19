@@ -7,8 +7,19 @@ jobs:
     name: Pull a Cloud Pod
     runs-on: ubuntu-latest
     steps:
-      - name: ⚡️ Checkout the repository
+      - name: Checkout the repository
         uses: actions/checkout@v3
+
+      - name: Start LocalStack
+        run: |
+          pip install pyopenssl -U
+          docker pull localstack/localstack
+          pip install localstack
+          DNS_ADDRESS=0 localstack start -d
+          localstack wait -t 30
+          pip install awscli-local[ver1]
+        env:
+          LOCALSTACK_API_KEY: ${{ secrets.LOCALSTACK_API_KEY }}
 
       - name: Login to LocalStack
         uses: LocalStack/localstack-github-actions-login@v0.1.0

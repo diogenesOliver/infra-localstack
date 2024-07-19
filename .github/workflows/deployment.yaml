@@ -15,9 +15,7 @@ jobs:
           pip install pyopenssl -U
           docker pull localstack/localstack
           pip install localstack
-          DNS_ADDRESS=0 localstack start -d
-          localstack wait -t 30
-          pip install awscli-local[ver1]
+          localstack start -d
         env:
           LOCALSTACK_API_KEY: ${{ secrets.LOCALSTACK_API_KEY }}
 

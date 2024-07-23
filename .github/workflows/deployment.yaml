@@ -1,28 +1,35 @@
-name: 'Creating Infra AWS with LocalStack'
+name: "CI from local infra with Localstack"
 
-on: [ push, pull_request ]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   test:
-    name: Pull a Cloud Pod
+    name: "Deploy"
     runs-on: ubuntu-latest
+    environment: production
+
+    permissions:
+      id-token: write
+
     steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v3
-
-      - name: Start LocalStack
-        run: |
-          pip install pyopenssl -U
-          docker pull localstack/localstack
-          docker run --rm -d -p 4566:4566 -p 4510-4559:4510-4559 localstack/localstack
-          pip install localstack
-          localstack start -d
-          pip install awscli-local[ver1]
-        env:
-          LOCALSTACK_API_KEY: ${{ secrets.LOCALSTACK_API_KEY }}
-
-      - name: Login to LocalStack
-        uses: LocalStack/localstack-github-actions-login@v0.1.0
+      - name: "Setup - Checkout"
+        uses: actions/checkout@v2.1.0
+        
+      - uses: aws-actions/configure-aws-credentials@v1
         with:
-          email: ${{ secrets.LOCALSTACK_USERNAME }}
-          password: ${{ secrets.LOCALSTACK_PASSWORD }}
+          aws-access-key-id: fake
+          aws-secret-access-key: fake
+          aws-region: us-east-1
+
+      - name: "Run - Terraform Init"
+        run: |
+          cd terraform/
+          terraform init -input=false
+
+      - name: "Run - Terraform Apply"
+        run: |
+          cd terraform/
+          terraform apply -auto-approve -input=false -no-color

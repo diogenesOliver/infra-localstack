@@ -1,4 +1,8 @@
+node_modules
+
 /terraform/.terraform
 .terraform.lock.hcl
 
 terraform.tfstate.backup
+
+api.http

@@ -20,8 +20,8 @@ jobs:
         
       - uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: fake
-          aws-secret-access-key: fake
+          aws-access-key-id: "fake"
+          aws-secret-access-key: "fake"
           aws-region: us-east-1
 
       - name: "Run - Terraform Init"

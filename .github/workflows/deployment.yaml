@@ -24,3 +24,19 @@ jobs:
         with:
           email: ${{ secrets.LOCALSTACK_USERNAME }}
           password: ${{ secrets.LOCALSTACK_PASSWORD }}
+
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: "fake"
+          aws-secret-access-key: "fake"
+          aws-region: us-east-1
+
+      - name: "Run - Terraform Init"
+        run: |
+          cd terraform/
+          terraform init -input=false
+
+      - name: "Run - Terraform Apply"
+        run: |
+          cd terraform/
+          terraform apply -auto-approve -input=false -no-color

@@ -8,6 +8,7 @@ provider "aws" {
   skip_requesting_account_id  = true
 
   endpoints {
-    sqs = "http://localhost:4566"
+    sqs        = "http://localhost:4566"
+    cloudwatch = "http://localhost:4566"
   }
 }

@@ -1,5 +1,5 @@
 resource "aws_cloudwatch_metric_alarm" "queue-metric" {
-  alarm_name          = "SQSQueueMessagesVisible"
+  alarm_name          = "SQSQueueMessagesSent"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 2
   metric_name         = "NumberOfMessagesSent"

@@ -1,9 +1,10 @@
 resource "aws_sqs_queue" "sqs-api-test" {
-  name                      = "sqs-api-test"
-  delay_seconds             = 90
-  max_message_size          = 2048
-  message_retention_seconds = 86400
-  receive_wait_time_seconds = 10
+  name                       = "sqs-api-test"
+  delay_seconds              = 30
+  max_message_size           = 2048
+  message_retention_seconds  = 600
+  receive_wait_time_seconds  = 10
+  visibility_timeout_seconds = 30
 
   tags = {
     Environment = "production"

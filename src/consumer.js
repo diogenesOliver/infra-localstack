@@ -1,10 +1,6 @@
 import express from 'express'
 import { ListQueuesCommand, SendMessageCommand, SQSClient } from '@aws-sdk/client-sqs'
-
-const sqs = new SQSClient({
-    region: 'us-east-1',
-    endpoint: 'http://localhost:4566'
-})
+import { SQSClientInstance } from './lib/sqs-client.js'
 
 export const consumerMessage = async (app) => {
     await app.get('/messages', async (request, response) => {
@@ -16,7 +12,7 @@ export const consumerMessage = async (app) => {
         const listMessages = new ListQueuesCommand(input)
         
         try{
-            const responseSQS = await sqs.send(listMessages, (err, data) => {
+            const responseSQS = await SQSClientInstance.send(listMessages, (err, data) => {
                 if(err)
                     return response.status(500).send({ message: 'Some error on server' })
 

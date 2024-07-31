@@ -21,6 +21,10 @@ export const producerMessage = async (app) => {
                 if(err)
                     return response.status(500).send({ message: 'Some error on server' })
             
+                console.log({
+                    message: "Success to send message",
+                    requestId: data["$metadata"].requestId
+                })
                 return response.status(200).send(data)
             })
         }catch(e){

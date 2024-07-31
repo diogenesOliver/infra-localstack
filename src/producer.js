@@ -1,7 +1,6 @@
 import { config } from 'dotenv'
 config()
 
-import express from 'express'
 import { ListQueuesCommand, SendMessageCommand, SQSClient } from '@aws-sdk/client-sqs'
 import { SQSClientInstance } from './lib/sqs-client.js'
 

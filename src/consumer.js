@@ -1,18 +1,26 @@
-import express from 'express'
-import { ListQueuesCommand, SendMessageCommand, SQSClient } from '@aws-sdk/client-sqs'
+import { config } from 'dotenv'
+config()
+
+import { SQSClient, ReceiveMessageCommand } from "@aws-sdk/client-sqs";
 import { SQSClientInstance } from './lib/sqs-client.js'
 
 export const consumerMessage = async (app) => {
     await app.get('/messages', async (request, response) => {
         const input = {
-            QueueNamePrefix: "sqs-api-test",
-            MaxResults: 10
-        }
+            QueueUrl: process.env.QUEUE_URL,
+            AttributeNames: [ 
+              "All" || "Policy" || "VisibilityTimeout" || "MaximumMessageSize" || "MessageRetentionPeriod" || "ApproximateNumberOfMessages" || "ApproximateNumberOfMessagesNotVisible" || "CreatedTimestamp" || "LastModifiedTimestamp" || "QueueArn" || "ApproximateNumberOfMessagesDelayed" || "DelaySeconds" || "ReceiveMessageWaitTimeSeconds" || "RedrivePolicy" || "FifoQueue" || "ContentBasedDeduplication" || "KmsMasterKeyId" || "KmsDataKeyReusePeriodSeconds" || "DeduplicationScope" || "FifoThroughputLimit" || "RedriveAllowPolicy" || "SqsManagedSseEnabled",
+            ],
+            MessageSystemAttributeNames: [ 
+              "All" || "SenderId" || "SentTimestamp" || "ApproximateReceiveCount" || "ApproximateFirstReceiveTimestamp" || "SequenceNumber" || "MessageDeduplicationId" || "MessageGroupId" || "AWSTraceHeader" || "DeadLetterQueueSourceArn",
+            ],
+            MaxNumberOfMessages: 10,
+          };
 
-        const listMessages = new ListQueuesCommand(input)
+        const command = new ReceiveMessageCommand(input)
         
         try{
-            const responseSQS = await SQSClientInstance.send(listMessages, (err, data) => {
+            await SQSClientInstance.send(command, (err, data) => {
                 if(err)
                     return response.status(500).send({ message: 'Some error on server' })
 

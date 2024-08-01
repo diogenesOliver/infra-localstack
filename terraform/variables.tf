@@ -9,6 +9,6 @@ variable "fake-keys" {
 }
 
 variable "region" {
-  type = string
-  default = "us-east-1"
+  type = list(string)
+  default = [ "us-east-1" ]
 }

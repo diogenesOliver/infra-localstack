@@ -1,7 +1,7 @@
 provider "aws" {
   access_key                  = var.fake-keys
   secret_key                  = var.fake-keys
-  region                      = var.region
+  region                      = var.region[0]
   s3_use_path_style           = false
   skip_credentials_validation = true
   skip_metadata_api_check     = true

@@ -10,7 +10,7 @@ resource "aws_cloudwatch_metric_alarm" "unprocessed-messages" {
   alarm_description   = "This metric monitors number of messages visible"
 
   dimensions = {
-    QueueName = aws_sqs_queue.sqs-api-test.name
+    QueueName = aws_sqs_queue.queue-loyal-customer.name
   }
 }
 
@@ -26,6 +26,6 @@ resource "aws_cloudwatch_metric_alarm" "messages-sent" {
   alarm_description   = "This metric monitors number of messages sent"
 
   dimensions = {
-    QueueName = aws_sqs_queue.sqs-api-test.name
+    QueueName = aws_sqs_queue.queue-loyal-customer.name
   }
 }

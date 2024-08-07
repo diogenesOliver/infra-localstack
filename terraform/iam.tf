@@ -16,3 +16,12 @@ resource "aws_iam_role" "iam_for_lambda" {
 }
 EOF
 }
+
+resource "aws_lambda_permission" "apigw_permission" {
+  statement_id  = "AllowAPIGatewayInvoke"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.consumer.function_name
+  principal     = "apigateway.amazonaws.com"
+
+  source_arn = "${aws_api_gateway_rest_api.consumer-api.execution_arn}}/*/*"
+}

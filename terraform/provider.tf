@@ -12,5 +12,6 @@ provider "aws" {
     cloudwatch = var.localstack-endpoint
     iam        = var.localstack-endpoint
     apigateway = var.localstack-endpoint
+    lambda     = var.localstack-endpoint
   }
 }

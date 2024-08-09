@@ -13,5 +13,6 @@ provider "aws" {
     iam        = var.localstack-endpoint
     apigateway = var.localstack-endpoint
     lambda     = var.localstack-endpoint
+    sns        = var.localstack-endpoint
   }
 }

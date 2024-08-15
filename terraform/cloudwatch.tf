@@ -1,4 +1,4 @@
-resource "aws_cloudwatch_metric_alarm" "unprocessed-messages" {
+/*resource "aws_cloudwatch_metric_alarm" "unprocessed-messages" {
   alarm_name          = "SQSMessagesVisibles"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 2
@@ -28,4 +28,4 @@ resource "aws_cloudwatch_metric_alarm" "messages-sent" {
   dimensions = {
     QueueName = aws_sqs_queue.queue-loyal-customer.name
   }
-}
+}*/

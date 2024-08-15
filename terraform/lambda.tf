@@ -1,4 +1,4 @@
-data "archive_file" "lambda" {
+/*data "archive_file" "lambda" {
   type        = "zip"
   source_file = "../src/index.js"
   output_path = "../src/index.zip"
@@ -13,4 +13,4 @@ resource "aws_lambda_function" "consumer" {
   source_code_hash = data.archive_file.lambda.output_base64sha256
 
   runtime = "nodejs20.x"
-}
+}*/

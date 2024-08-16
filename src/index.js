@@ -3,6 +3,7 @@ import urlencoded from 'body-parser'
 
 import { producerMessage } from './producer.js'
 import { consumerMessage } from './consumer.js'
+import { validationSubscription } from './sns-subscription-confirmation.js'
 
 const app = express()
 
@@ -15,3 +16,4 @@ app.listen(3333, () => {
 
 producerMessage(app)
 consumerMessage(app)
+validationSubscription(app)
